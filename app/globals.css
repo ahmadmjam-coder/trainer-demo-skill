@@ -165,3 +165,20 @@ h1, h2, h3, h4, h5, h6 {
 .text-muted {
   color: var(--color-muted-fg);
 }
+
+/* ─── GRID PATTERNS ──────────────────────────────────────────────────────────── */
+
+/* Three-column card grid. Equal row heights via CSS Grid stretch (the default).
+   Defined here rather than via Tailwind so gap can reference a CSS variable
+   and align-items isn't subject to Tailwind v4 utility ordering. */
+.reason-cards {
+  display:     grid;
+  gap:         var(--space-6);
+  align-items: stretch;
+}
+
+@media (min-width: 48rem) {
+  .reason-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
