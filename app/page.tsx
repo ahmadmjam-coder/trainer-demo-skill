@@ -1,6 +1,7 @@
 import DemoBanner from '@/components/DemoBanner'
 import Hero from '@/components/sections/Hero'
 import ProblemRecognition from '@/components/sections/ProblemRecognition'
+import TheMethod from '@/components/sections/TheMethod'
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <DemoBanner />
       <Hero />
       <ProblemRecognition />
+      <TheMethod />
     </>
   )
 }
