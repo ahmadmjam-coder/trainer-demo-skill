@@ -77,7 +77,9 @@ export default function Hero() {
                 lineHeight:   1.35,
                 color:        'var(--color-fg)',
                 marginBottom: 'var(--space-6)',
-              }}
+                maxWidth:     '14em',
+                textWrap:     'balance',
+              } as React.CSSProperties}
             >
               جرّبت قبل وما زبطت — هالمرة <Num>12</Num> أسبوع بنظام وحدا بيتابعك كل أسبوع
             </h1>
@@ -93,7 +95,7 @@ export default function Hero() {
                 marginBottom: 'var(--space-8)',
               }}
             >
-              مخصص لأهل الشغل اللي جرّبوا قبل ومش استمروا — في خطة واضحة
+              مخصص للموظفين اللي جرّبوا قبل وما كمّلوا — في خطة واضحة
               ومتابعة أسبوعية مبنية على قياسات حقيقية، مش وعود فاضية.
             </p>
 
@@ -150,7 +152,7 @@ export default function Hero() {
             gap:      'var(--space-10)',
           }}
         >
-          <StatItem number="+5 سنوات" label="خبرة في التدريب الشخصي" />
+          <StatItem number="4"        label="أسابيع لكل مرحلة" />
           <StatItem number="12"       label="أسبوعاً بخطة واضحة" />
           <StatItem number="3"        label="مراحل برنامج منظّمة" />
         </div>
