@@ -3,8 +3,9 @@ export default function DemoBanner() {
     <div
       role="banner"
       style={{
-        background:    'var(--color-primary)',
-        color:         'var(--color-primary-fg)',
+        /* #AD3D00 is intentionally outside theme.ts — scaffolding signal, removed before launch */
+        background:    '#AD3D00',
+        color:         '#ffffff',
         fontFamily:    'var(--font-body)',
         fontWeight:    500,
         fontSize:      '0.8125rem',

@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* ─── SCROLL BEHAVIOUR ───────────────────────────────────────────────────────── */
+
+/* --scroll-offset is set at runtime by SiteHeader via ResizeObserver on the
+   sticky wrapper, so it always equals the true rendered banner + header height.
+   The fallback (80px) is never used in practice but keeps CSS valid during SSR. */
+section[id] {
+  scroll-margin-top: var(--scroll-offset, 80px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* ─── BASE ──────────────────────────────────────────────────────────────────── */
 
 body {
@@ -304,6 +319,357 @@ h1, h2, h3, h4, h5, h6 {
 .faq-panel {
   padding-inline:  var(--space-6);
   padding-bottom:  var(--space-6);
+}
+
+/* ─── SITE HEADER ────────────────────────────────────────────────────────────── */
+/*
+ * State model:
+ *   .site-header                → white surface (light variant at page top)
+ *   .site-header--scrolled      → navy surface (light variant after hero scrolls out)
+ *   .site-header--navy          → navy surface (navy variant, always)
+ *
+ * All colour transitions are CSS-driven via the parent class. JS only adds/removes
+ * one class on <header>; React state is not re-rendered on every scroll tick.
+ *
+ * Contrast verified:
+ *   White header  — navy CTA (#1B3A5C on #fff)         ≈ 12:1   (AAA)
+ *   Navy header   — white CTA (#fff on #1B3A5C)        ≈ 12:1   (AAA)
+ *   White text on navy nav bg (#fff on #1B3A5C)        ≈ 12:1   (AAA)
+ */
+
+.site-header {
+  background:    var(--color-card);
+  border-bottom: 1px solid transparent;
+  box-shadow:    none;
+  transition:
+    background    var(--motion-normal) var(--motion-ease),
+    border-color  var(--motion-normal) var(--motion-ease),
+    box-shadow    var(--motion-normal) var(--motion-ease);
+}
+
+.site-header--scrolled,
+.site-header--navy {
+  background:    var(--color-primary);
+  border-bottom: 1px solid var(--color-primary-hover);
+  box-shadow:    var(--shadow-md);
+}
+
+/* ── Wordmark ── */
+
+.header-wordmark {
+  font-family:     var(--font-display);
+  font-weight:     700;
+  font-size:       1.0625rem;
+  color:           var(--color-primary);
+  text-decoration: none;
+  justify-self:    start;
+  padding-block:   var(--space-2);
+  border-radius:   var(--radius-md);
+  transition:      color var(--motion-normal) var(--motion-ease);
+}
+.header-wordmark:focus-visible {
+  outline:        3px solid currentColor;
+  outline-offset: 3px;
+}
+.site-header--scrolled .header-wordmark,
+.site-header--navy     .header-wordmark {
+  color: var(--color-primary-fg);
+}
+
+/* ── Desktop nav ── */
+
+.header-nav-desktop {
+  display: none;
+}
+@media (min-width: 48rem) {
+  .header-nav-desktop { display: block; }
+}
+
+.header-nav-list {
+  display:    flex;
+  gap:        var(--space-1);
+  margin:     0;
+  padding:    0;
+  list-style: none;
+}
+
+.header-nav-link {
+  display:         inline-flex;
+  align-items:     center;
+  min-height:      44px;
+  padding-block:   var(--space-2);
+  padding-inline:  var(--space-3);
+  font-family:     var(--font-body);
+  font-weight:     500;
+  font-size:       0.9375rem;
+  color:           var(--color-primary);
+  text-decoration: none;
+  border-radius:   var(--radius-md);
+  transition:
+    background var(--motion-fast)   var(--motion-ease),
+    color      var(--motion-normal) var(--motion-ease);
+}
+.header-nav-link:hover { background: var(--color-muted); }
+.header-nav-link:focus-visible {
+  outline:        3px solid currentColor;
+  outline-offset: 2px;
+}
+.site-header--scrolled .header-nav-link,
+.site-header--navy     .header-nav-link {
+  color: var(--color-primary-fg);
+}
+.site-header--scrolled .header-nav-link:hover,
+.site-header--navy     .header-nav-link:hover {
+  background: var(--color-primary-hover);
+}
+
+/* ── Header CTA (desktop, colour-switching) ── */
+/*
+ * Default (white header): navy button   — navy on white  ≈ 12:1 ✓
+ * Scrolled / navy:        white button  — white on navy  ≈ 12:1 ✓
+ */
+.btn-header-cta {
+  background:      var(--color-primary);
+  color:           var(--color-primary-fg);
+  font-family:     var(--font-display);
+  font-weight:     600;
+  font-size:       0.9375rem;
+  border-radius:   var(--radius-lg);
+  padding-block:   var(--space-2);
+  padding-inline:  var(--space-5);
+  min-height:      44px;
+  display:         none;
+  align-items:     center;
+  justify-content: center;
+  border:          none;
+  cursor:          pointer;
+  text-decoration: none;
+  transition:
+    background var(--motion-normal) var(--motion-ease),
+    color      var(--motion-normal) var(--motion-ease);
+}
+.btn-header-cta:hover { background: var(--color-primary-hover); }
+.btn-header-cta:focus-visible {
+  outline:        3px solid currentColor;
+  outline-offset: 3px;
+}
+@media (min-width: 48rem) {
+  .btn-header-cta { display: inline-flex; }
+}
+.site-header--scrolled .btn-header-cta,
+.site-header--navy     .btn-header-cta {
+  background: var(--color-primary-fg);
+  color:      var(--color-primary);
+}
+.site-header--scrolled .btn-header-cta:hover,
+.site-header--navy     .btn-header-cta:hover {
+  background: var(--color-accent-tint);
+}
+
+/* ── Hamburger ── */
+
+.header-hamburger {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  min-width:       44px;
+  min-height:      44px;
+  background:      transparent;
+  border:          none;
+  cursor:          pointer;
+  color:           var(--color-primary);
+  border-radius:   var(--radius-md);
+  transition:
+    background var(--motion-fast)   var(--motion-ease),
+    color      var(--motion-normal) var(--motion-ease);
+}
+.header-hamburger:hover { background: var(--color-muted); }
+.header-hamburger:focus-visible {
+  outline:        3px solid currentColor;
+  outline-offset: 2px;
+}
+@media (min-width: 48rem) {
+  .header-hamburger { display: none; }
+}
+.site-header--scrolled .header-hamburger,
+.site-header--navy     .header-hamburger {
+  color: var(--color-primary-fg);
+}
+.site-header--scrolled .header-hamburger:hover,
+.site-header--navy     .header-hamburger:hover {
+  background: var(--color-primary-hover);
+}
+
+/* ── Mobile menu ── */
+
+.header-mobile-menu {
+  background:    var(--color-card);
+  border-top:    1px solid var(--color-border);
+  padding-block: var(--space-2);
+}
+.site-header--scrolled .header-mobile-menu,
+.site-header--navy     .header-mobile-menu {
+  background: var(--color-primary-hover);
+  border-top: 1px solid var(--color-primary);
+}
+
+.header-mobile-link {
+  display:         flex;
+  align-items:     center;
+  min-height:      52px;
+  padding-block:   var(--space-3);
+  padding-inline:  var(--space-6);
+  font-family:     var(--font-body);
+  font-weight:     500;
+  font-size:       1rem;
+  color:           var(--color-primary);
+  text-decoration: none;
+  transition:
+    background var(--motion-fast)   var(--motion-ease),
+    color      var(--motion-normal) var(--motion-ease);
+}
+.header-mobile-link:hover { background: var(--color-muted); }
+.header-mobile-link:focus-visible {
+  outline:        3px solid var(--color-ring);
+  outline-offset: -3px;
+}
+.site-header--scrolled .header-mobile-link,
+.site-header--navy     .header-mobile-link {
+  color: var(--color-primary-fg);
+}
+.site-header--scrolled .header-mobile-link:hover,
+.site-header--navy     .header-mobile-link:hover {
+  background: var(--color-primary);
+}
+
+/* Mobile CTA in navy/scrolled state — btn-primary (navy) on darker-navy bg would vanish */
+.header-mobile-cta {
+  transition:
+    background var(--motion-normal) var(--motion-ease),
+    color      var(--motion-normal) var(--motion-ease);
+}
+.site-header--scrolled .header-mobile-cta,
+.site-header--navy     .header-mobile-cta {
+  background: var(--color-primary-fg);
+  color:      var(--color-primary);
+}
+.site-header--scrolled .header-mobile-cta:hover,
+.site-header--navy     .header-mobile-cta:hover {
+  background: var(--color-accent-tint);
+}
+
+/* ─── HERO (full-bleed) ──────────────────────────────────────────────────────── */
+/*
+ * Contrast verified (scrim opacity × placeholder bg #EDEAE4):
+ *   Mobile  — bottom opacity 0.93 → effective bg ~L 0.049 → white 10.7:1  (AAA)
+ *   Desktop — right opacity  0.90 → effective bg ~L 0.060 → white  9.6:1  (AAA)
+ *   Subheadline rgba(255,255,255,0.87) on desktop bg        → ~8.3:1 (AAA)
+ *   Stats label rgba(255,255,255,0.75) on desktop bg        → ~5.5:1 (AA)
+ */
+
+.hero-section {
+  position:       relative;
+  min-height:     max(560px, 80vh);
+  display:        flex;
+  flex-direction: column;
+}
+
+/* Background image layer — position: absolute so next/image fill works correctly */
+.hero-bg {
+  position:   absolute;
+  inset:      0;
+  background: var(--color-muted); /* fallback colour if image fails to load */
+}
+
+/* Mobile: crop from the right so the dark, bare portion fills the frame.
+   Equipment stays out of view to the left — text zone is clear.
+   Desktop: crop from the left — lit corner shows; dark right half sits
+   behind the RTL text column. */
+.hero-bg-img {
+  object-position: right center;
+}
+
+@media (min-width: 48rem) {
+  .hero-bg-img {
+    object-position: left center;
+  }
+}
+
+/* Mobile: heavy bottom scrim so text is legible wherever the image subject sits */
+.hero-scrim {
+  position: absolute;
+  inset:    0;
+  background: linear-gradient(
+    to top,
+    rgba(15,36,64,0.93) 0%,
+    rgba(15,36,64,0.78) 40%,
+    rgba(15,36,64,0.52) 70%,
+    rgba(15,36,64,0.28) 100%
+  );
+}
+
+/* Desktop: horizontal scrim — heavier on inline-start (right in RTL = text column) */
+@media (min-width: 48rem) {
+  .hero-scrim {
+    background: linear-gradient(
+      to left,
+      rgba(15,36,64,0.90) 0%,
+      rgba(15,36,64,0.68) 45%,
+      rgba(15,36,64,0.28) 80%,
+      rgba(15,36,64,0.10) 100%
+    );
+  }
+}
+
+/* Content layer sits above placeholder + scrim */
+.hero-content {
+  position:        relative;
+  z-index:         1;
+  flex:            1;
+  display:         flex;
+  flex-direction:  column;
+  justify-content: flex-end;   /* text toward bottom on mobile */
+  padding-top:     var(--space-16);
+  padding-bottom:  var(--space-12);
+}
+@media (min-width: 48rem) {
+  .hero-content {
+    justify-content: center;
+    padding-top:     var(--space-20);
+    padding-bottom:  var(--space-20);
+  }
+}
+
+/* Text column — full width mobile, right half desktop (inline-start in RTL) */
+.hero-text { /* full width by default */ }
+@media (min-width: 48rem) {
+  .hero-text { max-width: 52%; }
+}
+
+/* Hero CTA — white bg / navy text so it pops against any dark scrim */
+.btn-hero-cta {
+  background:      var(--color-primary-fg);
+  color:           var(--color-primary);
+  font-family:     var(--font-display);
+  font-weight:     600;
+  font-size:       1rem;
+  border-radius:   var(--radius-lg);
+  padding-block:   var(--space-3);
+  padding-inline:  var(--space-6);
+  min-height:      52px;
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--space-2);
+  border:          none;
+  cursor:          pointer;
+  text-decoration: none;
+  transition:      background var(--motion-fast) var(--motion-ease);
+}
+.btn-hero-cta:hover { background: var(--color-accent-tint); }
+.btn-hero-cta:focus-visible {
+  outline:        3px solid var(--color-primary-fg);
+  outline-offset: 3px;
 }
 
 /* ─── JOURNEY MAP ────────────────────────────────────────────────────────────── */

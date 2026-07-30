@@ -12,6 +12,14 @@
 - Colloquial means Palestinian specifically, not Egyptian or Gulf usage. Examples: "ما زبطت" not "مش شغلت", "حدا" not "أحد", "هالمرة" not "هذه المرة".
 - Never write copy that guarantees a result: no weight-loss amounts, no success rates, no promised outcomes.
 
+## Generated imagery
+- Never generate AI images of the trainer, clients, testimonial subjects,
+  or any before/after imagery. Generated people on a commercial page are a
+  false claim. Those slots stay empty until real photos exist.
+- Never use SplitText (GSAP) anywhere in this project. SplitText splits words
+  into individual characters, which breaks Arabic letter joining — the same
+  failure as letter-spacing.
+
 ## Hard rules
 - Never use a fixed height, max-height, or aspect-ratio on cards, card
   sections, or grid containers. Equal heights only via CSS grid stretch.

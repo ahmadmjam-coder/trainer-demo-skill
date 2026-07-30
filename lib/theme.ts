@@ -152,6 +152,13 @@ export const shadows = {
   xl:  '0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08)',
 } as const
 
+// ─── HEADER VARIANT ───────────────────────────────────────────────────────────
+// 'light' → transparent-to-white header, primary-colored wordmark and links.
+// 'navy'  → solid navy header, white wordmark and links, white CTA button.
+// To switch back to light, change 'navy' → 'light' on the next line.
+
+export const headerVariant: 'light' | 'navy' = 'light'
+
 // ─── MOTION ───────────────────────────────────────────────────────────────────
 
 export const motion = {
