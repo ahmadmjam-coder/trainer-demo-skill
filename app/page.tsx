@@ -3,6 +3,7 @@ import Hero from '@/components/sections/Hero'
 import ProblemRecognition from '@/components/sections/ProblemRecognition'
 import TheMethod from '@/components/sections/TheMethod'
 import JourneyMap from '@/components/sections/JourneyMap'
+import Results from '@/components/sections/Results'
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <ProblemRecognition />
       <TheMethod />
       <JourneyMap />
+      <Results />
     </>
   )
 }

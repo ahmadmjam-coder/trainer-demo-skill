@@ -195,6 +195,20 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ─── RESULTS ────────────────────────────────────────────────────────────────── */
+
+.results-cards {
+  display:     grid;
+  gap:         var(--space-6);
+  align-items: stretch;
+}
+
+@media (min-width: 48rem) {
+  .results-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /* ─── JOURNEY MAP ────────────────────────────────────────────────────────────── */
 
 /* One unified shape — accent bar on top signals a single arc, not three cards. */
