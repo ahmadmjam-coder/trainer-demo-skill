@@ -567,11 +567,18 @@ h1, h2, h3, h4, h5, h6 {
  *   Stats label rgba(255,255,255,0.75) on desktop bg        → ~5.5:1 (AA)
  */
 
+/* Mobile: 720px ensures flex-end content (~670px) doesn't overflow above the sticky header.
+   Desktop: restore a tighter value so the hero doesn't dominate large screens. */
 .hero-section {
   position:       relative;
-  min-height:     max(560px, 80vh);
+  min-height:     max(720px, 92vh);
   display:        flex;
   flex-direction: column;
+}
+@media (min-width: 48rem) {
+  .hero-section {
+    min-height: max(600px, 85vh);
+  }
 }
 
 /* Background image layer — position: absolute so next/image fill works correctly */

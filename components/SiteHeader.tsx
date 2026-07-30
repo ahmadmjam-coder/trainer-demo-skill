@@ -88,9 +88,10 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        {/* End column — inline-end (left in RTL) */}
+        {/* End column — pinned to column 3 so display:none on nav doesn't collapse it to column 2 */}
         <div
           style={{
+            gridColumn:  3,
             justifySelf: 'end',
             display:     'flex',
             alignItems:  'center',
