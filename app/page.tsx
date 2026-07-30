@@ -5,6 +5,7 @@ import TheMethod from '@/components/sections/TheMethod'
 import JourneyMap from '@/components/sections/JourneyMap'
 import Results from '@/components/sections/Results'
 import Testimonials from '@/components/sections/Testimonials'
+import AboutTrainer from '@/components/sections/AboutTrainer'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <JourneyMap />
       <Results />
       <Testimonials />
+      <AboutTrainer />
     </>
   )
 }

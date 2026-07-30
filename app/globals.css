@@ -223,6 +223,30 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ─── ABOUT TRAINER ──────────────────────────────────────────────────────────── */
+
+/* Two-column layout: photo slot (narrower) | info column (wider).
+   Single column on mobile — photo stacks above info. */
+.trainer-layout {
+  display: grid;
+  gap:     var(--space-8);
+}
+
+@media (min-width: 48rem) {
+  .trainer-layout {
+    grid-template-columns: 5fr 7fr;
+    align-items:           start;
+  }
+}
+
+/* Two-column credentials grid inside the info column.
+   Runs two columns at all widths — cells wrap their text rather than clip it. */
+.trainer-creds {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;
+  gap:                   var(--space-3);
+}
+
 /* ─── JOURNEY MAP ────────────────────────────────────────────────────────────── */
 
 /* One unified shape — accent bar on top signals a single arc, not three cards. */
