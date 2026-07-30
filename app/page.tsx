@@ -8,6 +8,7 @@ import Testimonials from '@/components/sections/Testimonials'
 import AboutTrainer from '@/components/sections/AboutTrainer'
 import WhatIsIncluded from '@/components/sections/WhatIsIncluded'
 import FAQ from '@/components/sections/FAQ'
+import LeadCapture from '@/components/sections/LeadCapture'
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <AboutTrainer />
       <WhatIsIncluded />
       <FAQ />
+      <LeadCapture />
     </>
   )
 }
