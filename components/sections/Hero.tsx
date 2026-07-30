@@ -147,7 +147,7 @@ export default function Hero() {
           }}
         />
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-10)' }}>
+        <div className="hero-stats">
           <StatItem number="4"  label="أسابيع لكل مرحلة"   />
           <StatItem number="12" label="أسبوعاً بخطة واضحة" />
           <StatItem number="3"  label="مراحل برنامج منظّمة" />

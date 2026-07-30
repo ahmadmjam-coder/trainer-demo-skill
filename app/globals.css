@@ -581,12 +581,12 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-muted); /* fallback colour if image fails to load */
 }
 
-/* Mobile: crop from the right so the dark, bare portion fills the frame.
-   Equipment stays out of view to the left — text zone is clear.
+/* Mobile: 60% shows x≈831px of the original (equipment ends at ~683px, safely off-screen).
+   Reveals more mid-right texture than hard right-edge crop.
    Desktop: crop from the left — lit corner shows; dark right half sits
    behind the RTL text column. */
 .hero-bg-img {
-  object-position: right center;
+  object-position: 60% center;
 }
 
 @media (min-width: 48rem) {
@@ -595,16 +595,19 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Mobile: heavy bottom scrim so text is legible wherever the image subject sits */
+/* Mobile: bottom stays opaque for text contrast; mid/top lightened so image
+   texture shows through the near-black crop zone.
+   Contrast check — rgba(255,255,255,0.75) stats label on 0.88 bottom:
+   effective surface ≈ rgb(13,32,56) → contrast ≈ 9.7:1 (AA ✓) */
 .hero-scrim {
   position: absolute;
   inset:    0;
   background: linear-gradient(
     to top,
-    rgba(15,36,64,0.93) 0%,
-    rgba(15,36,64,0.78) 40%,
-    rgba(15,36,64,0.52) 70%,
-    rgba(15,36,64,0.28) 100%
+    rgba(15,36,64,0.88) 0%,
+    rgba(15,36,64,0.62) 40%,
+    rgba(15,36,64,0.32) 70%,
+    rgba(15,36,64,0.10) 100%
   );
 }
 
@@ -670,6 +673,20 @@ h1, h2, h3, h4, h5, h6 {
 .btn-hero-cta:focus-visible {
   outline:        3px solid var(--color-primary-fg);
   outline-offset: 3px;
+}
+
+/* Stats row: single column on mobile (no orphan), row on desktop */
+.hero-stats {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-5);
+}
+@media (min-width: 48rem) {
+  .hero-stats {
+    flex-direction: row;
+    flex-wrap:      nowrap;
+    gap:            var(--space-10);
+  }
 }
 
 /* ─── JOURNEY MAP ────────────────────────────────────────────────────────────── */
