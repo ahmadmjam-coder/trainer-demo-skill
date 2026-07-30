@@ -194,3 +194,46 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ─── JOURNEY MAP ────────────────────────────────────────────────────────────── */
+
+/* One unified shape — accent bar on top signals a single arc, not three cards. */
+.journey-container {
+  background:    var(--color-card);
+  border:        1px solid var(--color-border);
+  border-top:    3px solid var(--color-accent);
+  border-radius: var(--radius-xl);
+  box-shadow:    var(--shadow-md);
+}
+
+/* Mobile: phases stacked, separated by a horizontal rule. */
+.journey-columns {
+  display:        flex;
+  flex-direction: column;
+}
+
+.journey-column {
+  padding: var(--space-6);
+}
+
+.journey-column + .journey-column {
+  border-top: 1px solid var(--color-border);
+}
+
+/* Desktop: three equal columns, separated by inline dividers.
+   align-items: stretch keeps all columns the same height. */
+@media (min-width: 48rem) {
+  .journey-columns {
+    display:               grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items:           stretch;
+  }
+
+  /* border-inline-start is RTL-aware: it sits on the inline-start edge.
+     In RTL that is the right side, which is where the divider belongs
+     (between the current column and the one to its right in visual order). */
+  .journey-column + .journey-column {
+    border-top:          none;
+    border-inline-start: 1px solid var(--color-border);
+  }
+}
