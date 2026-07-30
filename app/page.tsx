@@ -7,6 +7,7 @@ import Results from '@/components/sections/Results'
 import Testimonials from '@/components/sections/Testimonials'
 import AboutTrainer from '@/components/sections/AboutTrainer'
 import WhatIsIncluded from '@/components/sections/WhatIsIncluded'
+import FAQ from '@/components/sections/FAQ'
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Testimonials />
       <AboutTrainer />
       <WhatIsIncluded />
+      <FAQ />
     </>
   )
 }
