@@ -6,6 +6,7 @@ import JourneyMap from '@/components/sections/JourneyMap'
 import Results from '@/components/sections/Results'
 import Testimonials from '@/components/sections/Testimonials'
 import AboutTrainer from '@/components/sections/AboutTrainer'
+import WhatIsIncluded from '@/components/sections/WhatIsIncluded'
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Results />
       <Testimonials />
       <AboutTrainer />
+      <WhatIsIncluded />
     </>
   )
 }

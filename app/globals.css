@@ -247,6 +247,23 @@ h1, h2, h3, h4, h5, h6 {
   gap:                   var(--space-3);
 }
 
+/* ─── WHAT'S INCLUDED ────────────────────────────────────────────────────────── */
+
+/* Two-column card grid — different from the three-column grids used in
+   Sections 5/6 and the asymmetric two-column layout used in Section 7.
+   Equal heights via CSS Grid stretch (the default). */
+.included-cards {
+  display:     grid;
+  gap:         var(--space-6);
+  align-items: stretch;
+}
+
+@media (min-width: 48rem) {
+  .included-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* ─── JOURNEY MAP ────────────────────────────────────────────────────────────── */
 
 /* One unified shape — accent bar on top signals a single arc, not three cards. */
